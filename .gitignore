@@ -1,0 +1,12 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+.vscode/
+.idea/
+
+# Never commit raw originals to the site repo
+*.CR3
+*.cr3
+*.xmp
