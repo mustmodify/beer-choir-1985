@@ -94,7 +94,9 @@ a{color:inherit}
 .year{font-family:"Monoton",cursive;color:var(--gold);
   font-size:clamp(88px,22vw,240px);line-height:.86;margin:0;
   letter-spacing:.02em;
-  text-shadow:0 0 34px rgba(232,189,82,.30), 0 8px 40px rgba(0,0,0,.6)}
+  /* Hard offset shadow only — no blur, so Monoton's thin interline gaps stay
+     crisp instead of filling with a gold/black haze. */
+  text-shadow:3px 3px 0 rgba(0,0,0,.45), -1px -1px 0 rgba(0,0,0,.25)}
 .hero .rainbow{max-width:min(560px,80%);margin:26px auto 22px}
 .title{font-family:"Oswald",sans-serif;font-weight:700;text-transform:uppercase;
   font-size:clamp(20px,4.6vw,44px);letter-spacing:.06em;margin:0;line-height:1.05}
