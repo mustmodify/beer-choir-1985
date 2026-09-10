@@ -21,14 +21,23 @@ python -m http.server 8000
 
 ## Reuse this as a template for the next event
 
-Everything you need to change lives in two places:
+All content is **static HTML** (no build step, and it renders even with JavaScript
+off — JS only powers the click-to-enlarge lightbox and the twinkle animations). To
+adapt it, edit `index.html`:
 
-- **`index.html` `<script>` block** — the `PHOTOS` array (image path + caption + credit,
-  in page order) and the `COVER` constant. Add or remove entries freely.
-- **`index.html` hero + intro copy** — the year, event title, subtitle, location chips,
-  and the intro paragraphs are plain HTML near the top of `<body>`.
+- **Hero** — the cursive tagline, the big year, the title/subtitle, and the
+  `ADMIT ONE` ticket (venue + date) are near the top of `<body>`. Swap the hero photo
+  by changing the `background-image` on `.hero__bg`.
+- **Dance card (set list)** — each song is one `<li><a class="song" href="…&t=SECONDSs">`
+  row inside `<ol class="songs">`; the `t=` value is the deep-link into the concert
+  video. Change `VIDEO_URL`-style links and the `watch-cta` button to your recording.
+- **Gallery** — each photo is one `<figure class="card">` inside `.masonry`. Add,
+  remove, or reorder them; the lightbox picks them up automatically.
+- **Footer** — credits (director, video, copyright) live in `<footer>`.
 
-Then drop your new JPEGs into `images/` and delete the old ones.
+Then drop your new JPEGs into `images/` and delete the old ones. The retro palette,
+disco ball, balloons, twinkle lights, and film-grain are all pure CSS in the `<style>`
+block — recolor via the CSS variables in `:root`.
 
 ### Regenerating images from raw files
 
@@ -46,5 +55,10 @@ README.md
 
 ## Credits
 
-Photographs © the photographer. All rights reserved.
-Event: Asheville Beer Choir — *Songs from 1985* (1985 Prom theme).
+- **Event:** Asheville Beer Choir — *Songs from 1985* (1985 Prom theme), The Funkatorium, Asheville NC, Aug 29 2026
+- **Founder & Choir Director:** Laura Williams — [ashevillebeerchoir.com](https://www.ashevillebeerchoir.com/team)
+- **Concert video:** Brandon
+- **Photographs:** © 2026, all rights reserved
+
+The set list links deep-link into the concert recording on the Asheville Beer Choir
+YouTube channel.
