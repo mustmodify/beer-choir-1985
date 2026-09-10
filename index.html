@@ -95,6 +95,10 @@ a{color:inherit}
   margin:0 0 18px;text-indent:.42em;
   filter:drop-shadow(0 2px 10px rgba(0,0,0,.6))}
 .year{font-family:"Monoton",cursive;color:var(--gold);
+  /* Monoton ships one weight; .year is an h1/h2 (default bold), so browsers
+     were SYNTHESISING bold — thickening the strokes and closing the thin gaps.
+     Force normal so the real single-weight glyphs (with their pinstripe) show. */
+  font-weight:400;font-synthesis:none;
   font-size:clamp(88px,22vw,240px);line-height:.86;margin:0;
   letter-spacing:.02em;
   /* Hard offset shadow only — no blur, so Monoton's thin interline gaps stay
