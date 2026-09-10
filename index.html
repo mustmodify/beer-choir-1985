@@ -132,6 +132,34 @@ a{color:inherit}
 .card:hover figcaption{opacity:1;transform:none}
 .card figcaption b{color:var(--gold-bright)}
 
+/* ---------- SET LIST ---------- */
+.setlist-wrap{max-width:1080px;margin:0 auto;padding:40px 20px 20px}
+.watch-cta{display:inline-flex;align-items:center;gap:12px;margin:2px auto 30px;
+  font-family:"Oswald";text-transform:uppercase;letter-spacing:.16em;font-size:13px;
+  font-weight:600;color:#151119;background:var(--gold);border:0;border-radius:99px;
+  padding:12px 22px;text-decoration:none;transition:.2s;box-shadow:0 8px 26px rgba(232,189,82,.25)}
+.watch-cta:hover{background:var(--gold-bright);transform:translateY(-2px)}
+.watch-cta .tri{font-size:15px;line-height:1}
+.setlist-note{text-align:center;color:var(--muted);font-size:13px;margin:0 0 30px;font-style:italic}
+.songs{list-style:none;margin:0;padding:0;
+  display:grid;grid-auto-flow:column;grid-template-rows:repeat(12,auto);
+  grid-template-columns:1fr 1fr;gap:2px 40px}
+@media(max-width:720px){.songs{grid-auto-flow:row;grid-template-columns:1fr;grid-template-rows:none}}
+.song{display:flex;align-items:baseline;gap:14px;padding:12px 8px;
+  border-bottom:1px solid var(--edge);text-decoration:none;color:inherit;
+  transition:background .2s, padding-left .2s}
+.song:hover{background:rgba(232,189,82,.06);padding-left:14px}
+.song__no{font-family:"Monoton";color:var(--gold);font-size:15px;min-width:34px;opacity:.85}
+.song__body{flex:1;min-width:0}
+.song__title{font-family:"Oswald";font-weight:600;font-size:16px;letter-spacing:.02em;
+  color:var(--ink);line-height:1.2}
+.song__artist{font-size:12.5px;color:var(--muted);margin-top:1px}
+.song__time{font-family:"Oswald";font-size:12px;letter-spacing:.08em;color:var(--muted);
+  white-space:nowrap;border:1px solid var(--edge);border-radius:99px;padding:3px 9px;
+  transition:.2s;align-self:center}
+.song:hover .song__time{color:#151119;background:var(--gold);border-color:var(--gold)}
+.song--opener .song__title{font-style:italic;color:var(--gold-bright);font-weight:500}
+
 /* ---------- FOOTER ---------- */
 footer{margin-top:40px;padding:56px 24px 70px;text-align:center;position:relative;z-index:1;
   border-top:1px solid var(--edge);background:linear-gradient(180deg,transparent,rgba(0,0,0,.35))}
@@ -194,13 +222,29 @@ footer .rainbow{max-width:340px;margin:22px auto 0}
      <em>Songs from 1985</em> &mdash; a prom-themed concert where the sequins sparkled,
      the sheet music got waved like pom-poms, and every chorus landed like a slow-dance
      under a disco ball.</p>
-  <p>Here are a few frames from the night.</p>
+  <p>Here's the whole night &mdash; the full set list below, each song linked to the
+     moment it happened in the concert video, and a gallery of frames from the floor.</p>
+</section>
+
+<!-- ============ SET LIST ============ -->
+<section class="setlist-wrap" id="setlist">
+  <div class="section-head">
+    <h2>The Set List</h2>
+    <div class="rainbow sm"></div>
+  </div>
+  <div style="text-align:center">
+    <a class="watch-cta" id="watchTop" href="#" target="_blank" rel="noopener">
+      <span class="tri">&#9654;</span> Watch the full concert
+    </a>
+  </div>
+  <p class="setlist-note">Tap any song to jump to that moment in the video.</p>
+  <ol class="songs" id="songs"></ol>
 </section>
 
 <!-- ============ GALLERY ============ -->
 <div class="gallery-wrap">
   <div class="section-head">
-    <h2>The Set List</h2>
+    <h2>The Night in Pictures</h2>
     <div class="rainbow sm"></div>
   </div>
   <div class="masonry" id="masonry"></div>
@@ -231,6 +275,37 @@ footer .rainbow{max-width:340px;margin:22px auto 0}
    ===================================================================== */
 const COVER = "images/cover-choir-stage.jpg";
 
+/* The concert recording. Song times deep-link into it. */
+const VIDEO_URL = "https://www.youtube.com/watch?v=LSt-1MSjNro";
+
+/* Set list — title, original artist, timestamp, and seconds into the video. */
+const SETLIST = [
+  { t:"0:00",    s:0,    title:"Entrance",                 artist:"",                       opener:true },
+  { t:"1:50",    s:110,  title:"Head Over Heels",          artist:"Tears for Fears" },
+  { t:"6:57",    s:417,  title:"Life in a Northern Town",  artist:"The Dream Academy" },
+  { t:"11:42",   s:702,  title:"Running Up That Hill",     artist:"Kate Bush" },
+  { t:"17:12",   s:1032, title:"Sea of Love",              artist:"The Honeydrippers" },
+  { t:"20:32",   s:1232, title:"The NeverEnding Story",    artist:"Limahl" },
+  { t:"24:55",   s:1495, title:"You're the Inspiration",   artist:"Chicago" },
+  { t:"29:36",   s:1776, title:"Rhythm of the Night",      artist:"DeBarge" },
+  { t:"34:00",   s:2040, title:"Would I Lie to You?",      artist:"Eurythmics" },
+  { t:"38:22",   s:2302, title:"Smooth Operator",          artist:"Sade" },
+  { t:"42:17",   s:2537, title:"Forever Young",            artist:"Alphaville" },
+  { t:"45:42",   s:2742, title:"You Spin Me Round",        artist:"Dead or Alive" },
+  { t:"49:50",   s:2990, title:"Freeway of Love",          artist:"Aretha Franklin" },
+  { t:"55:00",   s:3300, title:"We Built This City",       artist:"Starship" },
+  { t:"59:50",   s:3590, title:"Do You Believe in Love",   artist:"Huey Lewis and the News" },
+  { t:"1:04:26", s:3866, title:"Road to Nowhere",          artist:"Talking Heads" },
+  { t:"1:09:22", s:4162, title:"Walking on Sunshine",      artist:"Katrina and the Waves" },
+  { t:"1:13:45", s:4425, title:"We Belong",                artist:"Pat Benatar" },
+  { t:"1:17:46", s:4666, title:"Heaven",                   artist:"Bryan Adams" },
+  { t:"1:21:30", s:4890, title:"The Power of Love",        artist:"Huey Lewis and the News" },
+  { t:"1:27:28", s:5248, title:"Like a Virgin",            artist:"Madonna" },
+  { t:"1:30:42", s:5442, title:"Careless Whisper",         artist:"George Michael" },
+  { t:"1:34:27", s:5667, title:"Take On Me",               artist:"a-ha" },
+  { t:"1:35:07", s:5707, title:"Don't You (Forget About Me)", artist:"Simple Minds" },
+];
+
 const PHOTOS = [
   { src:"images/cover-choir-stage.jpg",  caption:"Opening number",     credit:"The full choir" },
   { src:"images/duet-mic.jpg",           caption:"On the mic",          credit:"" },
@@ -249,6 +324,27 @@ const PHOTOS = [
 /* ---- hero bg + footer year ---- */
 document.getElementById("heroBg").style.backgroundImage = `url("${COVER}")`;
 document.getElementById("yr").textContent = new Date().getFullYear();
+
+/* ---- build set list (deep-linked to the video) ---- */
+const vidAt = s => `${VIDEO_URL}${VIDEO_URL.includes("?") ? "&" : "?"}t=${s}s`;
+document.getElementById("watchTop").href = VIDEO_URL;
+const songsEl = document.getElementById("songs");
+let songNo = 0;
+SETLIST.forEach(song => {
+  const a = document.createElement("a");
+  a.className = "song" + (song.opener ? " song--opener" : "");
+  a.href = vidAt(song.s);
+  a.target = "_blank"; a.rel = "noopener";
+  const label = song.opener ? "" : `<span class="song__no">${++songNo}</span>`;
+  const artist = song.artist ? `<div class="song__artist">${song.artist}</div>` : "";
+  a.innerHTML =
+    label +
+    `<div class="song__body"><div class="song__title">${song.title}</div>${artist}</div>` +
+    `<span class="song__time">${song.t}</span>`;
+  const li = document.createElement("li");
+  li.appendChild(a);
+  songsEl.appendChild(li);
+});
 
 /* ---- build gallery ---- */
 const masonry = document.getElementById("masonry");
