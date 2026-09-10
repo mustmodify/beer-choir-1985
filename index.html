@@ -142,6 +142,15 @@ a{color:inherit}
 .watch-cta:hover{background:var(--gold-bright);transform:translateY(-2px)}
 .watch-cta .tri{font-size:15px;line-height:1}
 .setlist-note{text-align:center;color:var(--muted);font-size:13px;margin:0 0 30px;font-style:italic}
+.directed{text-align:center;margin:4px 0 26px;transform:rotate(-2deg);line-height:1.1;
+  font-family:"Kaushan Script",cursive;font-size:clamp(22px,4.6vw,36px);
+  filter:drop-shadow(0 3px 10px rgba(0,0,0,.55))}
+.directed .t{background:linear-gradient(100deg,#c9962f 12%,#fff3cf 50%,#c9962f 88%);
+  background-size:220% auto;-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;animation:shimmer 3.2s linear infinite}
+.directed .clap{display:inline-block;transform:translateY(2px);animation:wiggle 3.2s ease-in-out infinite}
+@keyframes shimmer{to{background-position:-220% center}}
+@keyframes wiggle{0%,100%{transform:translateY(2px) rotate(-6deg)}50%{transform:translateY(2px) rotate(8deg)}}
 .setlist-credit{text-align:center;color:var(--muted);font-size:12.5px;margin:28px auto 0;max-width:54ch;opacity:.9}
 .setlist-credit a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(232,189,82,.3)}
 .setlist-credit a:hover{color:var(--gold-bright)}
@@ -194,26 +203,6 @@ footer .rainbow{max-width:340px;margin:22px auto 0}
   animation:grain 1.1s steps(3) infinite}
 @keyframes grain{0%{transform:translate(0,0)}33%{transform:translate(-4%,3%)}66%{transform:translate(3%,-2%)}100%{transform:translate(0,0)}}
 
-/* hanging disco ball */
-.disco{position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:3;
-  display:flex;flex-direction:column;align-items:center;pointer-events:none}
-.disco__wire{width:2px;height:30px;background:linear-gradient(#0000,#888)}
-.discoball{width:56px;height:56px;border-radius:50%;position:relative;
-  background:
-    radial-gradient(circle at 34% 28%, #fff 0 5%, rgba(255,255,255,0) 38%),
-    repeating-conic-gradient(from 0deg, #e2f4ff 0 15deg, #86b6cd 15deg 30deg);
-  box-shadow:inset -8px -10px 20px rgba(0,20,40,.55), 0 0 26px rgba(150,220,255,.5);
-  animation:spin 14s linear infinite}
-.discoball::before{content:"";position:absolute;inset:0;border-radius:50%;mix-blend-mode:overlay;
-  background:
-    linear-gradient(90deg, rgba(255,255,255,.18) 1px, transparent 1px) 0 0/11px 11px,
-    linear-gradient(0deg, rgba(0,0,0,.28) 1px, transparent 1px) 0 0/11px 11px}
-.discoball::after{content:"";position:absolute;inset:-46px;border-radius:50%;
-  background:radial-gradient(closest-side, rgba(180,230,255,.16), transparent 70%);
-  animation:pulse 3.2s ease-in-out infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes pulse{0%,100%{opacity:.45}50%{opacity:1}}
-
 /* floating balloons */
 .balloon{position:absolute;z-index:2;width:42px;height:52px;pointer-events:none;
   border-radius:50% 50% 50% 50%/45% 45% 55% 55%;
@@ -255,9 +244,9 @@ footer .rainbow{max-width:340px;margin:22px auto 0}
 .ticket__date{margin:2px 0 0;font-size:11px;letter-spacing:.13em;color:#8a6d3a;text-transform:uppercase}
 
 /* prom-theme cursive tagline in hero */
-.prom-theme{font-family:"Kaushan Script",cursive;color:var(--gold-bright);
+.prom-theme{font-family:"Kaushan Script",cursive;color:#5fe0d4;
   font-size:clamp(22px,4.4vw,40px);margin:0 0 -4px;transform:rotate(-3deg);
-  text-shadow:0 2px 18px rgba(0,0,0,.7)}
+  text-shadow:0 2px 10px rgba(0,0,0,.85), 0 0 22px rgba(51,169,160,.55)}
 
 /* set list styled as a prom "dance card" */
 .dance-card{position:relative;max-width:1000px;margin:0 auto;padding:38px 30px 30px;
@@ -410,7 +399,6 @@ footer .rainbow{max-width:340px;margin:22px auto 0}
 <header class="hero">
   <div class="hero__bg" style="background-image:url('images/cover-choir-stage.jpg')"></div>
   <div class="hero__scrim"></div>
-  <div class="disco" aria-hidden="true"><span class="disco__wire"></span><span class="discoball"></span></div>
   <span class="balloon b1" aria-hidden="true"></span>
   <span class="balloon b2" aria-hidden="true"></span>
   <div class="hero__inner">
@@ -457,7 +445,7 @@ footer .rainbow{max-width:340px;margin:22px auto 0}
     <p class="dance-card__sub">The 1985 set list</p>
     <div class="rainbow sm" style="max-width:200px;margin:14px auto 0"></div>
   </div>
-  <p class="setlist-note">The program for the evening.</p>
+  <p class="directed"><span class="clap">&#127916;</span> <span class="t">Directed by Brandon!</span></p>
   <!-- SET LIST — one <li><a class="song" href="…&t=SECONDSs">…</a></li> per song, in order -->
   <ol class="songs" id="songs">
     <li><a class="song song--opener" href="https://www.youtube.com/watch?v=LSt-1MSjNro&t=0s" target="_blank" rel="noopener"><div class="song__body"><div class="song__title">Entrance</div></div><span class="song__time">0:00</span></a></li>
@@ -485,7 +473,7 @@ footer .rainbow{max-width:340px;margin:22px auto 0}
     <li><a class="song" href="https://www.youtube.com/watch?v=LSt-1MSjNro&t=5667s" target="_blank" rel="noopener"><span class="song__no">22</span><div class="song__body"><div class="song__title">Take On Me</div><div class="song__artist">a-ha</div></div><span class="song__time">1:34:27</span></a></li>
     <li><a class="song" href="https://www.youtube.com/watch?v=LSt-1MSjNro&t=5707s" target="_blank" rel="noopener"><span class="song__no">23</span><div class="song__body"><div class="song__title">Don't You (Forget About Me)</div><div class="song__artist">Simple Minds</div></div><span class="song__time">1:35:07</span></a></li>
   </ol>
-  <p class="setlist-credit">Brandon filmed the whole show &mdash; each song above links into <a href="https://www.youtube.com/watch?v=LSt-1MSjNro" target="_blank" rel="noopener">his recording</a>.</p>
+  <p class="setlist-credit">Each song links to that moment in <a href="https://www.youtube.com/watch?v=LSt-1MSjNro" target="_blank" rel="noopener">the concert recording</a>.</p>
  </div>
 </section>
 
