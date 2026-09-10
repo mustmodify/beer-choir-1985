@@ -84,6 +84,9 @@ a{color:inherit}
   filter:saturate(.9) contrast(1.02);transform:scale(1.04)}
 .hero__scrim{position:absolute;inset:0;z-index:-1;
   background:
+    /* Soft dark pool right behind the title so Monoton's thin interline gaps
+       read as dark (crisp pinstripe) instead of showing the busy photo. */
+    radial-gradient(48% 34% at 50% 40%, rgba(6,6,10,.80), rgba(6,6,10,.34) 58%, transparent 76%),
     radial-gradient(115% 85% at 50% 32%, transparent 30%, rgba(11,11,16,.5) 80%, rgba(11,11,16,.85) 100%),
     linear-gradient(180deg, rgba(11,11,16,.45), rgba(11,11,16,.15) 45%, rgba(11,11,16,.8))}
 .hero__inner{max-width:920px;position:relative}
