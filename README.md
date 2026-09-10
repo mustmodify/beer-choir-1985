@@ -34,6 +34,9 @@ adapt it, edit `index.html`:
 - **Gallery** — each photo is one `<figure class="card">` inside `.masonry`. Add,
   remove, or reorder them; the lightbox picks them up automatically.
 - **Footer** — credits (director, video, copyright) live in `<footer>`.
+- **Boot intro** — the `#boot` overlay (a 1985 C64-style loading screen with ASCII-art
+  letters) shows once per browser session; edit its `.boot__art` `<pre>` to change the
+  banner. It's hidden without JavaScript, so it never blocks the content.
 
 Then drop your new JPEGs into `images/` and delete the old ones. The retro palette,
 disco ball, balloons, twinkle lights, and film-grain are all pure CSS in the `<style>`
